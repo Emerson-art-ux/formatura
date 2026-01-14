@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
 const firebaseConfig = {
     databaseURL: "firebase-adminsdk-fbsvc@formatura-506aa.iam.gserviceaccount.com"
@@ -7,57 +7,50 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const palco = document.getElementById('palco');
+let listaExibicao = [];
+let index = 0;
+let timer;
 
-let listaArquivos = [];
-const input = document.getElementById('f-input');
-const feedback = document.getElementById('feedback');
-const grid = document.getElementById('grid-fotos');
-
-// Tornar a função disponível para os botões do HTML
-window.switchTab = (evt, tabName) => {
-    document.querySelectorAll(".content").forEach(c => c.classList.remove("active"));
-    document.querySelectorAll(".tab-btn").forEach(t => t.classList.remove("active"));
-    document.getElementById(tabName).classList.add("active");
-    evt.currentTarget.classList.add("active");
-};
-
-input.onchange = async () => {
-    const files = Array.from(input.files);
-    feedback.innerText = "Processando...";
-    for (const file of files) {
-        const base64 = await convert64(file);
-        const tipo = file.type.startsWith('video') ? 'video' : 'img';
-        const item = { id: Date.now() + Math.random(), base64, tipo };
-        listaArquivos.push(item);
-        renderItem(item);
+// ESCUTA A NUVEM
+onValue(ref(db, 'playlist'), (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
+        listaExibicao = data;
+        index = 0;
+        document.getElementById('msg-aguarde').style.display = 'none';
+        iniciarCiclo();
     }
-    feedback.innerText = "Pronto para enviar!";
-    document.getElementById('status-vazio').style.display = 'none';
-};
-
-function renderItem(item) {
-    const div = document.createElement('div');
-    div.className = 'foto-card';
-    let midia = item.tipo === 'video' ? document.createElement('video') : document.createElement('img');
-    midia.src = item.base64;
-    const btn = document.createElement('button');
-    btn.className = 'remove-btn'; btn.innerHTML = '&times;';
-    btn.onclick = () => { div.remove(); listaArquivos = listaArquivos.filter(i => i.id !== item.id); };
-    div.append(midia, btn);
-    grid.appendChild(div);
-}
-
-document.getElementById('btnEnviar').onclick = () => {
-    if (listaArquivos.length === 0) return alert("Adicione mídias!");
-    feedback.innerText = "Sincronizando com a TV...";
-    set(ref(db, 'playlist'), listaArquivos)
-        .then(() => alert("TV Atualizada!"))
-        .catch(err => alert("Erro: Vídeo muito grande para o Firebase."));
-};
-
-const convert64 = file => new Promise(res => {
-    const r = new FileReader();
-    r.readAsDataURL(file);
-    r.onload = () => res(r.result);
 });
 
+function iniciarCiclo() {
+    clearTimeout(timer);
+    palco.innerHTML = ""; 
+    if (!listaExibicao.length) return;
+
+    const item = listaExibicao[index];
+    if (item.tipo === 'video') {
+        const v = document.createElement('video');
+        v.className = "item-midia active";
+        v.src = item.base64; v.muted = true; v.autoplay = true; v.playsInline = true;
+        v.onended = () => proximo();
+        palco.appendChild(v);
+    } else {
+        const img = document.createElement('img');
+        img.className = "item-midia active";
+        img.src = item.base64;
+        palco.appendChild(img);
+        timer = setTimeout(proximo, 5000);
+    }
+}
+
+function proximo() {
+    index = (index + 1) % listaExibicao.length;
+    iniciarCiclo();
+}
+
+// Clique inicial obrigatório no computador
+window.onclick = () => {
+    const v = document.querySelector('video');
+    if (v) v.play();
+};
