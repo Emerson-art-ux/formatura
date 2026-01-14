@@ -3,7 +3,7 @@ import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10
 
 // CONFIGURAÇÃO: Use a mesma URL do painel
 const firebaseConfig = {
-    databaseURL: "https://formatura-a712c.firebaseapp.com/"
+    databaseURL: "https://console.firebase.google.com/u/0/project/formatura-506aa/firestore/databases/-default-/data"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -62,3 +62,4 @@ window.onclick = () => {
     const v = palco.querySelector('video');
     if (v && v.paused) v.play();
 };
+
