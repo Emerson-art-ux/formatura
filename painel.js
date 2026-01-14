@@ -3,7 +3,7 @@ import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1
 
 // URL corrigida baseada na sua Imagem 4
 const firebaseConfig = {
-    databaseURL: "https://formatura-mppf-default-rtdb.firebaseio.com/" 
+    databaseURL: "https://formatura-506aa-default-rtdb.firebaseio.com/" 
 };
 
 const app = initializeApp(firebaseConfig);
@@ -84,4 +84,5 @@ window.enviarParaTV = function() {
             alert("Erro: Mídia muito pesada para o banco de dados.");
         });
 };
+
 
