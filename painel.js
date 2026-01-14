@@ -4,7 +4,7 @@ import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1
 
 // CONFIGURAÇÃO: Cole a sua URL aqui
 const firebaseConfig = {
-    databaseURL: "https://formatura-a712c.firebaseapp.com/" 
+    databaseURL: "https://console.firebase.google.com/u/0/project/formatura-506aa/firestore/databases/-default-/data" 
 };
 
 const app = initializeApp(firebaseConfig);
@@ -92,3 +92,4 @@ const convert64 = file => new Promise((resolve) => {
     r.readAsDataURL(file);
     r.onload = () => resolve(r.result);
 });
+
