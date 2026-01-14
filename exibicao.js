@@ -1,7 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-// CONFIGURAÇÃO: URL idêntica à do painel
 const firebaseConfig = {
     databaseURL: "https://formatura-506aa-default-rtdb.firebaseio.com/"
 };
@@ -13,11 +12,11 @@ let listaExibicao = [];
 let index = 0;
 let timer;
 
-// ESCUTA EM TEMPO REAL: Se mudar no celular, roda aqui
+// ESCUTA EM TEMPO REAL: Se mudar no telemóvel, atualiza aqui
 onValue(ref(db, 'playlist'), (snapshot) => {
     const data = snapshot.val();
     if (data) {
-        console.log("Novas mídias recebidas via Nuvem!");
+        console.log("Novas mídias recebidas!");
         listaExibicao = data;
         index = 0;
         const msg = document.getElementById('msg-aguarde');
@@ -29,7 +28,7 @@ onValue(ref(db, 'playlist'), (snapshot) => {
 function iniciarCiclo() {
     clearTimeout(timer);
     
-    // Limpeza de vídeos anteriores
+    // Limpeza de vídeos anteriores para não travar o computador
     palco.querySelectorAll('video').forEach(v => {
         v.onended = null; 
         v.pause(); 
@@ -49,7 +48,7 @@ function iniciarCiclo() {
         video.muted = true; 
         video.playsInline = true; 
         video.src = item.base64;
-        video.oncanplay = () => video.play().catch(e => console.log("Aguardando clique na tela"));
+        video.oncanplay = () => video.play().catch(() => console.log("Clique na tela para dar som/play"));
         video.onended = () => proximo();
         palco.appendChild(video);
     } else {
@@ -58,7 +57,7 @@ function iniciarCiclo() {
         img.src = item.base64;
         palco.appendChild(img);
         
-        // Tempo de 5 segundos para fotos
+        // Tempo de exibição da foto: 5 segundos
         timer = setTimeout(proximo, 5000);
     }
 }
@@ -69,9 +68,8 @@ function proximo() {
     iniciarCiclo();
 }
 
-// Desbloqueio de autoplay: Obrigatório clicar na tela do computador uma vez
+// Desbloqueio manual (Clique obrigatório no computador da TV)
 window.onclick = () => {
     const v = palco.querySelector('video');
     if (v && v.paused) v.play();
 };
-
