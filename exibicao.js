@@ -3,7 +3,7 @@ import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10
 
 // CONFIGURAÇÃO: URL idêntica à do painel
 const firebaseConfig = {
-    databaseURL: "https://formatura-mppf-default-rtdb.firebaseio.com/"
+    databaseURL: "https://formatura-506aa-default-rtdb.firebaseio.com/"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -74,3 +74,4 @@ window.onclick = () => {
     const v = palco.querySelector('video');
     if (v && v.paused) v.play();
 };
+
