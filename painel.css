@@ -1,0 +1,177 @@
+:root {
+    --bg: #000000; 
+    --card: #1e1e1e; 
+    --accent: #2980b9;
+    --success: #27ae60; 
+    --danger: #c0392b; 
+    --text: #eee;
+}
+
+body { 
+    font-family: 'Segoe UI', sans-serif; 
+    background: var(--bg); 
+    color: var(--text); 
+    margin: 0; 
+    padding: 0; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+}
+
+header {
+    width: 100%;
+    background: #fddc35;
+    padding: 15px 0;
+    text-align: center;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 30px;
+}
+
+header h1 { 
+    margin: 0; 
+    font-size: 24px; 
+    color: var(--accent); 
+    letter-spacing: 2px; 
+}
+
+.container { 
+    width: 95%; 
+    max-width: 900px; 
+    background: var(--card); 
+    border-radius: 12px; 
+    overflow: hidden; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+    margin-bottom: 40px; 
+}
+
+.tabs { 
+    display: flex; 
+    background: #252525; 
+    border-bottom: 2px solid #333; 
+}
+
+.tab-btn { 
+    flex: 1; 
+    padding: 15px; 
+    border: none; 
+    background: none; 
+    color: #888; 
+    cursor: pointer; 
+    font-weight: bold; 
+    font-size: 16px; 
+    transition: 0.3s; 
+}
+
+.tab-btn.active { 
+    color: var(--accent); 
+    border-bottom: 3px solid var(--accent); 
+    background: #2a2a2a; 
+}
+
+.content { 
+    padding: 30px; 
+    display: none; 
+}
+
+.content.active { 
+    display: block; 
+}
+
+.upload-area { 
+    border: 2px dashed #444; 
+    padding: 40px; 
+    text-align: center; 
+    border-radius: 10px; 
+}
+
+.btn-file { 
+    background: var(--accent); 
+    padding: 12px 25px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    display: inline-block; 
+    font-weight: bold; 
+}
+
+#feedback {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.grid-fotos { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
+    gap: 15px; 
+}
+
+.foto-card { 
+    position: relative; 
+    height: 160px; 
+    background: #000; 
+    border-radius: 8px; 
+    border: 2px solid #333; 
+    overflow: hidden; 
+}
+
+.foto-card img, .foto-card video { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
+#status-vazio {
+    color: #666; 
+    text-align: center; 
+    padding: 20px;
+}
+
+.video-badge { 
+    position: absolute; 
+    bottom: 5px; 
+    left: 5px; 
+    background: rgba(0,0,0,0.7); 
+    color: white; 
+    padding: 2px 6px; 
+    font-size: 10px; 
+    border-radius: 4px; 
+    border: 1px solid #555; 
+}
+
+.remove-btn { 
+    position: absolute; 
+    top: 5px; 
+    right: 5px; 
+    background: var(--danger); 
+    color: white; 
+    border: none; 
+    border-radius: 50%; 
+    width: 28px; 
+    height: 28px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    z-index: 10; 
+}
+
+.footer { 
+    padding: 25px; 
+    text-align: center; 
+    border-top: 1px solid #333; 
+    background: #1a1a1a; 
+}
+
+.btn-launch { 
+    background: var(--success); 
+    color: white; 
+    border: none; 
+    padding: 15px 50px; 
+    border-radius: 30px; 
+    font-size: 18px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    transition: 0.3s; 
+}
+
+.btn-launch:hover { 
+    background: #219150; 
+    transform: scale(1.02); 
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle - Mídia Pro</title>
+    <link rel="stylesheet" href="painel.css">
+</head>
+<body>
+
+<header>
+    <h1>GESTÃO DE MÍDIA</h1> 
+    <h1>Emerson</h1>
+</header>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(event, 'aba-upload')">ADICIONAR MÍDIA</button>
+        <button class="tab-btn" onclick="switchTab(event, 'aba-lista')">FOTOS E VÍDEOS ADICIONADOS</button>
+    </div>
+
+    <div id="aba-upload" class="content active">
+        <div class="upload-area">
+            <h3>Carregar Conteúdo</h3>
+            <p>Selecione imagens (JPG, PNG) ou vídeos (MP4, MOV).</p>
+            <label for="f-input" class="btn-file">ESCOLHER FICHEIROS</label>
+            <input type="file" id="f-input" accept="image/*,video/*" multiple>
+            <p id="feedback"></p>
+        </div>
+    </div>
+
+    <div id="aba-lista" class="content">
+        <h3>Gerir Lista de Reprodução</h3>
+        <div id="status-vazio">A lista está vazia. Adicione mídias na primeira aba.</div>
+        <div class="grid-fotos" id="grid-fotos"></div>
+    </div>
+
+    <div class="footer">
+        <button class="btn-launch" onclick="enviarParaTV()">ATUALIZAR EXIBIÇÃO AGORA</button>
+    </div>
+</div>
+
+<script src="painel.js"></script>
+</body>
+</html>
